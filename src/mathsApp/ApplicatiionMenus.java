@@ -59,9 +59,9 @@ public class ApplicatiionMenus extends JPanel implements ActionListener{
 		if (e.getSource() == additionSelect) {
         	AdditionGame.main(null);
         } else if (e.getSource() == subtractionSelect) {
-        	
+        	SubtractionGame.main(null);
         } else if (e.getSource() == multiplicationSelect) {
-        	
+        	MultiplicationGame.main(null);
         } else if (e.getSource() == divisionSelect) {
         	
         }

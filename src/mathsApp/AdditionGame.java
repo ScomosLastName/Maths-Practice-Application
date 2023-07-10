@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 public class AdditionGame extends JPanel implements ActionListener {
 	Label questionDisplay;
 	TextField answer;
-	Button confirmAnswer;
+	Button answerButton;
 	boolean isPlayerAlive = true;
 	int[] questionStored = new int[2]; // array to store question
 	
@@ -42,13 +42,13 @@ public class AdditionGame extends JPanel implements ActionListener {
 		
 		questionDisplay = new Label(generateQuestion());
 		answer = new TextField(10);
-		confirmAnswer = new Button("Confirm");
+		answerButton = new Button("Confirm");
 		
 		add (questionDisplay);
 		add (answer);
-		add (confirmAnswer);
+		add (answerButton);
 		
-		confirmAnswer.addActionListener(this);
+		answerButton.addActionListener(this);
 	}
 	
 	public void paint(Graphics g) {
@@ -57,18 +57,19 @@ public class AdditionGame extends JPanel implements ActionListener {
 			System.out.println(questionStored[0] + questionStored[1]);
 			questionDisplay.setText(questionStored[0] + " + " + questionStored[1]);
 		} else {
+			questionDisplay.setBounds(115, 20, 100, 100);
 			questionDisplay.setText("You Loose!");
 		}
 		paintComponents(g);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == confirmAnswer) {
+		if (e.getSource() == answerButton) {
 			if (questionStored[0] + questionStored[1] == Integer.parseInt(answer.getText())) {
 				System.out.println("Correct");
 			} else {
 				answer.setVisible(false);
-				confirmAnswer.setVisible(false);
+				answerButton.setVisible(false);
 				isPlayerAlive = false;
 			}
 			repaint();
@@ -82,7 +83,7 @@ public class AdditionGame extends JPanel implements ActionListener {
 				System.out.println("Correct");
 			} else {
 				answer.setVisible(false);
-				confirmAnswer.setVisible(false);
+				answerButton.setVisible(false);
 				isPlayerAlive = false;
 			}
 			repaint();
