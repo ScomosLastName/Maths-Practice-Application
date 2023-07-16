@@ -1,5 +1,6 @@
 package mathsApp;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,14 +12,16 @@ import java.awt.event.KeyEvent;
 public class AdditionGame extends JPanel implements ActionListener {
 	Label questionDisplay;
 	TextField answer;
-	Button answerButton;
+	JButton answerButton;
 	boolean isPlayerAlive = true;
 	int[] questionStored = new int[2]; // array to store question
+	int score;
 	
 	public static void main(String[] a) {
 		JFrame frame = new JFrame("Addition Game"); 
         AdditionGame panel = new AdditionGame();
         panel.init();
+        panel.setLayout(null);
         frame.setSize(300, 300);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,15 +43,21 @@ public class AdditionGame extends JPanel implements ActionListener {
 	
 	public void init() {
 		
+		
+		
 		questionDisplay = new Label(generateQuestion());
 		answer = new TextField(10);
-		answerButton = new Button("Confirm");
+		answerButton = new JButton("Answer");
 		
 		add (questionDisplay);
 		add (answer);
 		add (answerButton);
 		
 		answerButton.addActionListener(this);
+		
+		questionDisplay.setBounds(125, 10, 100, 25);
+		answer.setBounds(125, 50, 100, 20);
+		answerButton.setBounds(10, 50, 80, 20);
 	}
 	
 	public void paint(Graphics g) {
@@ -59,14 +68,20 @@ public class AdditionGame extends JPanel implements ActionListener {
 		} else {
 			questionDisplay.setBounds(115, 20, 100, 100);
 			questionDisplay.setText("You Loose!");
+			g.drawString("your score was: " + score, 115, 130);
 		}
 		paintComponents(g);
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { //TODO Fix Weird thing that pops up when you press the jButton
 		if (e.getSource() == answerButton) {
 			if (questionStored[0] + questionStored[1] == Integer.parseInt(answer.getText())) {
 				System.out.println("Correct");
+				answer.setText("");
+				answer.requestFocus();
+				score++;
+				
+				answerButton.setVisible(true);
 			} else {
 				answer.setVisible(false);
 				answerButton.setVisible(false);
@@ -76,17 +91,8 @@ public class AdditionGame extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void keyTyped(KeyEvent e) { // TODO fix Key Detection
+	public void keyPressed(KeyEvent e) { // TODO fix Key Detection
+
 		
-		if (e.getKeyChar()=='\n') {
-			if (questionStored[0] + questionStored[1] == Integer.parseInt(answer.getText())) {
-				System.out.println("Correct");
-			} else {
-				answer.setVisible(false);
-				answerButton.setVisible(false);
-				isPlayerAlive = false;
-			}
-			repaint();
-		}	
 	}
 }

@@ -18,6 +18,8 @@ public class SubtractionGame extends JPanel implements ActionListener{
 	Button answerButton;
 	boolean isPlayerAlive = true;
 	int[] questionStored = new int[2]; // array to store question
+	int score;
+
 	
 	public static void main(String[] a) {
 		JFrame frame = new JFrame("Subtraction Game"); 
@@ -63,8 +65,9 @@ public class SubtractionGame extends JPanel implements ActionListener{
 			System.out.println(questionStored[0] - questionStored[1]);
 			questionDisplay.setText(questionStored[0] + " - " + questionStored[1]);
 		} else {
-			questionDisplay.setBounds(120, 80, 100, 100);
+			questionDisplay.setBounds(115, 20, 100, 100);
 			questionDisplay.setText("You Loose!");
+			g.drawString("your score was: " + score, 115, 130);
 		}
 		paintComponents(g);
 	}
@@ -73,6 +76,8 @@ public class SubtractionGame extends JPanel implements ActionListener{
 		if (e.getSource() == answerButton) {
 			if (questionStored[0] - questionStored[1] == Integer.parseInt(answer.getText())) {
 				System.out.println("Correct");
+				answer.setText("");
+				score++;
 			} else {
 				answer.setVisible(false);
 				answerButton.setVisible(false);
@@ -87,6 +92,8 @@ public class SubtractionGame extends JPanel implements ActionListener{
 		if (e.getKeyChar()=='\n') {
 			if (questionStored[0] - questionStored[1] == Integer.parseInt(answer.getText())) {
 				System.out.println("Correct");
+				answer.setText("");
+				score++;
 			} else {
 				answer.setVisible(false);
 				answerButton.setVisible(false);

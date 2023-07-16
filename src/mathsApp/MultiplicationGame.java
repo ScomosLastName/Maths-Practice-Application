@@ -6,6 +6,7 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,6 +17,8 @@ public class MultiplicationGame extends JPanel implements ActionListener {
 	Button answerButton;
 	boolean isPlayerAlive = true;
 	int[] questionStored = new int[2]; // array to store question
+	int score;
+
 	
 	public static void main(String[] a) {
 		JFrame frame = new JFrame("Subtraction Game"); 
@@ -61,8 +64,9 @@ public class MultiplicationGame extends JPanel implements ActionListener {
 			System.out.println(questionStored[0] * questionStored[1]);
 			questionDisplay.setText(questionStored[0] + " x " + questionStored[1]);
 		} else {
-			questionDisplay.setBounds(120, 80, 100, 100);
+			questionDisplay.setBounds(115, 20, 100, 100);
 			questionDisplay.setText("You Loose!");
+			g.drawString("your score was: " + score, 115, 130);
 		}
 		paintComponents(g);
 	}
@@ -71,6 +75,8 @@ public class MultiplicationGame extends JPanel implements ActionListener {
 		if (e.getSource() == answerButton) {
 			if (questionStored[0] * questionStored[1] == Integer.parseInt(answer.getText())) {
 				System.out.println("Correct");
+				answer.setText("");
+				score++;
 			} else {
 				answer.setVisible(false);
 				answerButton.setVisible(false);
@@ -78,5 +84,21 @@ public class MultiplicationGame extends JPanel implements ActionListener {
 			}
 			repaint();
 		}
+	}
+	
+	public void keyTyped(KeyEvent e) { // TODO fix Key Detection
+		
+		if (e.getKeyChar()=='\n') {
+			if (questionStored[0] - questionStored[1] == Integer.parseInt(answer.getText())) {
+				System.out.println("Correct");
+				answer.setText("");
+				score++;
+			} else {
+				answer.setVisible(false);
+				answerButton.setVisible(false);
+				isPlayerAlive = false;
+			}
+			repaint();
+		}	
 	}
 }
